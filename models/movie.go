@@ -2,8 +2,9 @@ package models
 
 import (
 	"errors"
-	"go_project/util"
 	"strings"
+
+	"go_project/util"
 )
 
 type Movie struct {
@@ -12,6 +13,7 @@ type Movie struct {
 	Genres []string
 }
 
+// ParseRecords - Parses the movies csv file
 func ParseRecords() ([]Movie, error) {
 	records, err := util.ReadCsvFile("./data/movies.csv")
 	if err != nil {
@@ -33,6 +35,7 @@ func ParseRecords() ([]Movie, error) {
 	return data, nil
 }
 
+// GetAllMovies - Returns all movies
 func GetAllMovies() ([]Movie, error) {
 	movies, err := ParseRecords()
 	if err != nil {
@@ -42,6 +45,7 @@ func GetAllMovies() ([]Movie, error) {
 	return movies, nil
 }
 
+// GetMovieById - Returns a single movie based on their id
 func GetMovieById(id string) (*Movie, error) {
 	var movies, err = ParseRecords()
 	if err != nil {
