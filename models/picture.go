@@ -24,7 +24,7 @@ func (p Picture) Values() []string {
 	}
 }
 
-// GetAllPictures - Returns all pictures
+// FetchPicture - Fetches the picture from the specific date
 func FetchPicture(date string) (*Picture, error) {
 	client := util.CreateClient().
 		SetError(&ErrorResponse{}).
@@ -45,7 +45,7 @@ func FetchPicture(date string) (*Picture, error) {
 	return picture, nil
 }
 
-// GetPictureById - Returns a single picture based on their id
+// GetPictureFromDate - Returns a single picture based on their date
 func GetPictureFromDate(date string) (*Picture, error) {
 	var picture, err = FetchPicture(date)
 	if err != nil {

@@ -20,6 +20,7 @@ type GeneralErrorResponse struct {
 	ServiceVersion string `json:"service_version"`
 }
 
+// GetError - Returns the error message
 func (err ErrorResponse) GetError() error {
 	if err.Msg != "" {
 		return errors.New(err.Msg)

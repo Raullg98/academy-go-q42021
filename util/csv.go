@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ReadCsvFile - Returns an array with the csv rows
 func ReadCsvFile(filename string) ([][]string, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -15,6 +16,7 @@ func ReadCsvFile(filename string) ([][]string, error) {
 	return reader.ReadAll()
 }
 
+// AppendToCsvFile - Appends row to filename csv
 func AppendToCsvFile(filename string, row []string) error {
 	file, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0755)
 	if err != nil {
