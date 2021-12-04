@@ -1,22 +1,20 @@
 package models
 
-import (
-	"go_project/util"
-)
-
+// Picture - struct for picture
 type Picture struct {
-	Copyright   string `json:"copyright"`
 	Date        string `json:"date"`
+	Copyright   string `json:"copyright"`
 	Title       string `json:"title"`
 	Explanation string `json:"explanation"`
 	Url         string `json:"hdurl"`
 	MediaType   string `json:"media_type"`
 }
 
+// Values - Return a string array containing all the values
 func (p Picture) Values() []string {
 	return []string{
-		p.Copyright,
 		p.Date,
+		p.Copyright,
 		p.Title,
 		p.Explanation,
 		p.Url,
@@ -24,33 +22,14 @@ func (p Picture) Values() []string {
 	}
 }
 
-// FetchPicture - Fetches the picture from the specific date
-func FetchPicture(date string) (*Picture, error) {
-	client := util.CreateClient().
-		SetError(&ErrorResponse{}).
-		SetResult(&Picture{})
-
-	resp, err := client.
-		SetQueryParam("date", date).
-		Get("https://api.nasa.gov/planetary/apod")
-
-	if err != nil {
-		return nil, err
-	} else if resp.IsError() {
-		responseError := resp.Error().(*ErrorResponse)
-		return nil, responseError.GetError()
+// Values - Returns a picture based on an array of values
+func NewPictureFromValues(values []string) *Picture {
+	return &Picture{
+		Date:        values[0],
+		Copyright:   values[1],
+		Title:       values[2],
+		Explanation: values[3],
+		Url:         values[4],
+		MediaType:   values[5],
 	}
-
-	picture := resp.Result().(*Picture)
-	return picture, nil
-}
-
-// GetPictureFromDate - Returns a single picture based on their date
-func GetPictureFromDate(date string) (*Picture, error) {
-	var picture, err = FetchPicture(date)
-	if err != nil {
-		return nil, err
-	}
-
-	return picture, nil
 }
